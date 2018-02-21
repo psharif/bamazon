@@ -67,12 +67,12 @@ function promptUser(){
 			});
 		});
 	});
+}
 
-	function updateInventory(quantity, item_id){
-		console.log("The Item ID of the item is " + item_id);
-		connection.query("UPDATE products SET ? WHERE ?",[{stock_quantity: quantity},{item_id: item_id}], function(err, res){
-			if(err) console.log(err);
-			console.log(res.affectedRows + " products updated!\n");
-		});
-	}
+function updateInventory(quantity, item_id){
+	console.log("The Item ID of the item is " + item_id);
+	connection.query("UPDATE products SET ? WHERE ?",[{stock_quantity: quantity},{item_id: item_id}], function(err, res){
+		if(err) console.log(err);
+		console.log(res.affectedRows + " products updated!\n");
+	});
 }
