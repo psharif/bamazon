@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
+
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -8,10 +9,10 @@ var connection = mysql.createConnection({
 });
 
 
-customerDisplay();
+viewLowInventory();
 
-function customerDisplay(){
-	connection.query("SELECT item_id, product_name, price FROM products", function(err, res){
+function managerDisplay(){
+	connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", function(err, res){
 		if(err) console.log(err);
 		console.log("\n*****ITEMS******")
 		res.forEach(function(item){
@@ -24,7 +25,23 @@ function customerDisplay(){
 			}
 			console.log("----------------------------");
 		});
-		promptUser();
+	});
+}
+
+function viewLowInventory(){
+	connection.query("SELECT item_id, product_name, price, stock_quantity FROM products WHERE stock_quantity < 5", function(err, res){
+		if(err) console.log(err);
+		console.log("\n***** LOW INVENTORY ITEMS******")
+		res.forEach(function(item){
+			console.log("----------------------------");
+			for(key in item){
+				if (key === "price")
+					console.log(key + ": $" + item[key].toFixed(2));
+				else
+					console.log(key + ": " + item[key]);
+			}
+			console.log("----------------------------");
+		});
 	});
 }
 
@@ -32,7 +49,7 @@ function promptUser(){
 	inquirer.prompt([
 		{
 			type: "input", 
-			message: "What is the item_id of the product you are trying to buy?",
+			message: "What is the item_id of the product you wanna add more of?",
 			name: "item_id",
 			validate: function(value) {
 	          if (isNaN(value) === false && value >= 0) {
@@ -43,7 +60,7 @@ function promptUser(){
 		}, 
 		{
 			type: "input", 
-			message: "How many do you want to purchase?",
+			message: "How much of this product do you want to add?",
 			name: "amount",
 			validate: function(value) {
 	          if (isNaN(value) === false && value >= 0) {
@@ -54,18 +71,9 @@ function promptUser(){
 
 		}
 	]).then(function(answers){
-		connection.query("SELECT stock_quantity, price FROM products WHERE ?", {item_id: answers.item_id}, function(err, res){
-			if(err) console.log(err);
-			res.forEach(function(item){
-				if(item.stock_quantity >= answers.amount){
-					var updatedAmount = item.stock_quantity - answers.amount;
-					updateInventory(updatedAmount, answers.item_id);
-					console.log("Your Total For this Purchase is: $" + (answers.amount * item.price).toFixed(2));
-				}
-				else
-					console.log("Insufficient quantity!");
-			});
-		});
+		connection.query("UPDATE products SET ? WHERE ?",[{stock_quantity: quantity},{item_id: item_id}], function(err, res){
+		if(err) console.log(err);
+		console.log(res.affectedRows + " products updated!\n");
 	});
 }
 
