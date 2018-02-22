@@ -8,8 +8,7 @@ var connection = mysql.createConnection({
   database : 'bamazon'
 });
 
-
-viewLowInventory();
+addNewProduct();
 
 function managerDisplay(){
 	connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", function(err, res){
@@ -45,7 +44,7 @@ function viewLowInventory(){
 	});
 }
 
-function promptUser(){
+function addInventory(){
 	inquirer.prompt([
 		{
 			type: "input", 
@@ -71,9 +70,13 @@ function promptUser(){
 
 		}
 	]).then(function(answers){
-		connection.query("UPDATE products SET ? WHERE ?",[{stock_quantity: quantity},{item_id: item_id}], function(err, res){
-		if(err) console.log(err);
-		console.log(res.affectedRows + " products updated!\n");
+		connection.query("SELECT stock_quantity, price FROM products WHERE ?", {item_id: answers.item_id}, function(err, res){
+			if(err) console.log(err);
+			res.forEach(function(item){
+				var updatedAmount = item.stock_quantity + parseInt(answers.amount);
+				updateInventory(updatedAmount, answers.item_id);
+			});
+		});
 	});
 }
 
@@ -82,5 +85,55 @@ function updateInventory(quantity, item_id){
 	connection.query("UPDATE products SET ? WHERE ?",[{stock_quantity: quantity},{item_id: item_id}], function(err, res){
 		if(err) console.log(err);
 		console.log(res.affectedRows + " products updated!\n");
+	});
+}
+
+function addNewProduct(){
+	inquirer.prompt([
+		{
+			type: "input", 
+			message: "What is the name of the new item?",
+			name: "itemName",
+		},
+		{
+			type: "input", 
+			message: "What is the Department for the Item?",
+			name: "deptName",
+		},
+		{
+			type: "input", 
+			message: "How Much Do you want to charge for the Item?",
+			name: "price",
+			validate: function(value) {
+	          if (isNaN(value) === false && value >= 0) {
+	            return true;
+	          }
+	          return false;
+	        }
+		},
+		{
+			type: "input", 
+			message: "How much of this product do you want to add?",
+			name: "stock_quantity",
+			validate: function(value) {
+	          if (isNaN(value) === false && value >= 0) {
+	            return true;
+	          }
+	          return false;
+	        }
+		}
+	]).then(function(answers){
+		connection.query("INSERT INTO products SET ?", 
+			{
+			 product_name: answers.itemName,
+			 department_name: answers.deptName,
+			 price: answers.price,
+			 stock_quantity: answers.stock_quantity
+			}, 
+			function(err, res){
+				if(err) console.log(err);
+				console.log(res.affectedRows + " product inserted!\n");
+				console.log( answers.itemName + " was added.\n")
+		});
 	});
 }

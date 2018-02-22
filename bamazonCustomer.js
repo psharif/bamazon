@@ -28,7 +28,7 @@ function customerDisplay(){
 	});
 }
 
-function promptUser(){
+function userPurchase(){
 	inquirer.prompt([
 		{
 			type: "input", 
