@@ -15,25 +15,19 @@ function promptManager(){
 		{
 			type: "list", 
 			message: "What Would You Like To Do?",
-			choices: ["View Products for Sale",
-					  "View Low Inventory",
-					  "Add to Inventory",
-					  "Add New Product"],
+			choices: [
+				"View Product Sales by Department",
+   				"Create New Department"
+			],
 			name: "selection"
 		}
 	]).then(function(answers){
 		switch(answers.selection){
-			case "View Products for Sale": 
-			managerDisplay();
+			case "View Product Sales by Department": 
+			viewProductSales();
 			break; 
-			case "View Low Inventory":
-			viewLowInventory();
-			break;
-			case "Add to Inventory":
-			addInventory();
-			break;
-			case "Add New Product":
-			addNewProduct();
+			case "Create New Department":
+			createNewDepartment();
 			break;
 			default: 
 				console.log("I'm Sorry We Can't Do That.");
