@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
-
+var cTable = require('console.table');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -24,17 +24,17 @@ function promptManager(){
 	]).then(function(answers){
 		switch(answers.selection){
 			case "View Products for Sale": 
-			managerDisplay();
-			break; 
+				managerDisplay();
+				break; 
 			case "View Low Inventory":
-			viewLowInventory();
-			break;
+				viewLowInventory();
+				break;
 			case "Add to Inventory":
-			addInventory();
-			break;
+				addInventory();
+				break;
 			case "Add New Product":
-			addNewProduct();
-			break;
+				addNewProduct();
+				break;
 			default: 
 				console.log("I'm Sorry We Can't Do That.");
 		}
@@ -44,35 +44,23 @@ function promptManager(){
 function managerDisplay(){
 	connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", function(err, res){
 		if(err) console.log(err);
-		console.log("\n*****ITEMS******")
-		res.forEach(function(item){
-			console.log("----------------------------");
-			for(key in item){
-				if (key === "price")
-					console.log(key + ": $" + item[key].toFixed(2));
-				else
-					console.log(key + ": " + item[key]);
-			}
-			console.log("----------------------------");
-		});
+		//Prints the Table
+		console.log();
+		console.table(res);
 	});
+
+	connection.end();
 }
 
 function viewLowInventory(){
 	connection.query("SELECT item_id, product_name, price, stock_quantity FROM products WHERE stock_quantity < 5", function(err, res){
 		if(err) console.log(err);
-		console.log("\n***** LOW INVENTORY ITEMS******")
-		res.forEach(function(item){
-			console.log("----------------------------");
-			for(key in item){
-				if (key === "price")
-					console.log(key + ": $" + item[key].toFixed(2));
-				else
-					console.log(key + ": " + item[key]);
-			}
-			console.log("----------------------------");
-		});
+		//Prints the Table
+		console.log();
+		console.table(res);
 	});
+
+	connection.end();
 }
 
 function addInventory(){
@@ -112,11 +100,12 @@ function addInventory(){
 }
 
 function updateInventory(quantity, item_id){
-	console.log("The Item ID of the item is " + item_id);
 	connection.query("UPDATE products SET ? WHERE ?",[{stock_quantity: quantity},{item_id: item_id}], function(err, res){
 		if(err) console.log(err);
 		console.log(res.affectedRows + " products updated!\n");
 	});
+
+	connection.end();
 }
 
 function addNewProduct(){
@@ -163,8 +152,10 @@ function addNewProduct(){
 			}, 
 			function(err, res){
 				if(err) console.log(err);
-				console.log(res.affectedRows + " product inserted!\n");
+				console.log("\n" + res.affectedRows + " product inserted!");
 				console.log( answers.itemName + " was added.\n")
 		});
+
+		connection.end();
 	});
 }
