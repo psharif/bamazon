@@ -22,13 +22,13 @@ CREATE TABLE departments(
 );
 
 INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales) 
-VALUES  ("Electronic Keyboard", "Electronics", 50.99, 20, 0.00),  
-	    ("Tap Shoes", "Clothing", 69.50, 10, 0.00),  
+VALUES  ("Electronic Keyboard", "Electronics", 50.99, 20, 10.00),  
+	    ("Tap Shoes", "Clothing", 69.50, 10, 50.00),  
         ("Heart Pendant", "Jewelry", 49.99, 12, 0.00),
         ("Robot", "Toys", 100.00, 20, 0.00),
-		("Kangaroo Jammies", "Clothing", 24.99, 25, 0.00),
+		("Kangaroo Jammies", "Clothing", 24.99, 25, 30.00),
         ("Mini Pool Table", "Toys", 60.00, 10, 0.00),
-        ("Laptop", "Electronics", 450.00, 10, 0.00),
+        ("Laptop", "Electronics", 450.00, 10, 200.00),
         ("Chef Hat", "Clothing", 50.00, 14, 0.00), 
         ("Cricket Earrings", "Jewelry", 25.99, 8, 0.00),
         ("Hulk Feet", "Toys", 21.50, 10, 0.00);

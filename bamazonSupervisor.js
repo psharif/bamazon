@@ -8,9 +8,9 @@ var connection = mysql.createConnection({
   database : 'bamazon'
 });
 
-promptManager();
+promptSupervisor();
 
-function promptManager(){
+function promptSupervisor(){
     inquirer.prompt([
 		{
 			type: "list", 
@@ -33,6 +33,29 @@ function promptManager(){
 				console.log("I'm Sorry We Can't Do That.");
 		}
 	});
+}
+
+function viewProductSales(){
+	var query = "SELECT departments.department_id, departments.department_name, departments.over_head_costs, "
+			  + "t1.product_sales, t1.product_sales-departments.over_head_costs AS total_profit "
+			  + "FROM departments JOIN" 
+			  + "(SELECT SUM(product_sales) AS product_sales, department_name FROM products GROUP BY department_name) "
+			  + "AS t1 ON departments.department_name = t1.department_name";
+	connection.query(query, function(err, res){
+		if(err) console.log(err);
+		console.log("\n***** LOW INVENTORY ITEMS******");
+		res.forEach(function(item){
+			console.log("----------------------------");
+			for(key in item){
+				if (key === "department_id" || key === "department_name")
+					console.log(key + ": " + item[key]);
+				else
+					console.log(key + ": $" + item[key].toFixed(2));
+			}
+			console.log("----------------------------");
+		});
+	});
+	
 }
 
 function managerDisplay(){
