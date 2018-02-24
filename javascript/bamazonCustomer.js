@@ -54,7 +54,7 @@ function userPurchase(){
 					var updatedAmount = item.stock_quantity - answers.amount;
 					var productSales = answers.amount * item.price;
 					updateInventory(updatedAmount, answers.item_id, productSales);
-					console.log("Your Total For this Purchase is: $" + productSales.toFixed(2));
+					console.log("\nYour Total For this Purchase is: $" + productSales.toFixed(2));
 				}
 				else
 					console.log("Insufficient quantity!");
@@ -64,7 +64,6 @@ function userPurchase(){
 }
 
 function updateInventory(quantity, item_id, productSales){
-	console.log("The Item ID of the item is " + item_id);
 	connection.query("UPDATE products SET ? WHERE ?",
 		[
 			{
