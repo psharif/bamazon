@@ -11,7 +11,7 @@ A command Line CRUD App that displays products stored in a MySQL database and up
  
  Enter node <filename> ['bamazonCustomer.js', 'bamazonManager.js', 'bamazonSupervisor.js']
 
-## Commands 
+## Customer Commands
 
 ### node bamazonCustomer.js
 1. Displays a table of products available for a customer to purchase. 
@@ -23,6 +23,8 @@ A command Line CRUD App that displays products stored in a MySQL database and up
 
 The database will be updated as well. **NOTE: check Database** 
 
+## Manager Commands
+
 ### node bamazonManager.js
 1. __View Products For Sale__ Displays The Products and Inventory of Products in bamazon.
 2. __View Low Inventory__ Displays The Products That have less than 5 in stock.
@@ -32,10 +34,11 @@ The database will be updated as well. **NOTE: check Database**
 3. __Add to Inventory__ Adds an amount of a certain item to stock_quantity for the item.
 4. __Add New Product__ Adds a new product to the product table. 
 
-
 ![bamazonCustomer gif](/README_GIFS/bamazonManager2.gif)
 
 The database will be updated as well. **NOTE: check Database** 
+
+## Supervisor Commands 
 
 ### node bamazonSupervisor.js
 1. __View Product Sales by Department__ Displays the departments sales, overhead costs, 
