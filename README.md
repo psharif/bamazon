@@ -11,7 +11,7 @@ A command Line CRUD App that displays products stored in a MySQL database and up
  
  * Choose the Directory of the javascript files.
  * Open up a console or terminal window.
- * Enter node <filename> 
+ * Enter node [filename] 
  * File name Choices For App: ['bamazonCustomer.js', 'bamazonManager.js', 'bamazonSupervisor.js']
 
 ## Customer Commands
