@@ -21,10 +21,29 @@ A command Line CRUD App that displays products stored in a MySQL database and up
 
 ![bamazonCustomer gif](/README_GIFS/bamazonCustomer.gif)
 
-4. The database will be updated as well. **NOTE: check Database** 
+The database will be updated as well. **NOTE: check Database** 
+
+### node bamazonManager.js
+1. __View Products For Sale__ Displays The Products and Inventory of Products in bamazon.
+2. __View Low Inventory__ Displays The Products That have less than 5 in stock.
+
+![bamazonCustomer gif](/README_GIFS/bamazonManager1.gif)
+
+3. __Add to Inventory__ Adds an amount of a certain item to stock_quantity for the item.
+4. __Add New Product__ Adds a new product to the product table. 
+
+
+![bamazonCustomer gif](/README_GIFS/bamazonManager2.gif)
+
+The database will be updated as well. **NOTE: check Database** 
+
+### node bamazonSupervisor.js
+1. __View Product Sales by Department__ Displays the departments sales, overhead costs, 
+and Profit (difference of profit - cost)
+2. __Create New Department__ Adds a New Department to bamazon.
+
+![bamazonCustomer gif](/README_GIFS/bamazonSupervisor.gif)
+
+The database will be updated as well. **NOTE: check Database** 
      
-## Notes About Using
 
-If the user decides to use the inquirer to run the commands. It will ask the user if they want to enter more commands, but it might show before the results for each command are printed. Just press up or down on the arrow keys and the prompt will show below the printed results.
-
-![keep Going Prompt](/README_images/keepGoingPrompt.png)
