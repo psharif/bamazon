@@ -1,7 +1,7 @@
 # bamazon
 A command Line CRUD App that displays products stored in a MySQL database and updates them through node.
 
-## Notes About Running liri.js 
+## Notes About Running bamazon
  * Enter npm i or npm install to install the necessary node packages for the app.
  * __'inquirer'__ was used for User Input; __'mysql__' for MySQL for database transactions; 
  	console.table for printing tables.
