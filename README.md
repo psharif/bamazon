@@ -7,9 +7,12 @@ A command Line CRUD App that displays products stored in a MySQL database and up
  	console.table for printing tables.
  * Run the SQL Schema in MySQL to create the necessary databases and tables.
 
-## Ways to run 
+## How to run 
  
- Enter node <filename> ['bamazonCustomer.js', 'bamazonManager.js', 'bamazonSupervisor.js']
+ * Choose the Directory of the javascript files.
+ * Open up a console or terminal window.
+ * Enter node [filename] 
+ * File name Choices For App: ['bamazonCustomer.js', 'bamazonManager.js', 'bamazonSupervisor.js']
 
 ## Customer Commands
 
